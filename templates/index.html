@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Weather Application</title>
+    <title>Simple Application</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@
             align-items: center;
             height: 100vh;
         }
-        .weather-container {
+        .app-container {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
@@ -23,17 +23,17 @@
             width: 300px;
             text-align: center;
         }
-        .weather-container h2 {
+        .app-container h2 {
             margin: 0 0 10px;
         }
-        .weather-container input {
+        .app-container input {
             padding: 10px;
             width: 100%;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        .weather-container button {
+        .app-container button {
             padding: 10px;
             background-color: #4CAF50;
             color: #fff;
@@ -42,58 +42,38 @@
             width: 100%;
             cursor: pointer;
         }
-        .weather-container button:hover {
+        .app-container button:hover {
             background-color: #45a049;
         }
-        .weather-info {
+        .app-info {
             margin-top: 20px;
         }
-        .weather-info p {
+        .app-info p {
             margin: 5px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="weather-container">
-        <h2>Weather Information</h2>
-        <input type="text" id="city" placeholder="Enter city name" />
-        <button onclick="getWeather()">Get Weather</button>
+    <div class="app-container">
+        <h2>Input Data</h2>
+        <input type="text" id="inputData" placeholder="Enter some data" />
+        <button onclick="handleInput()">Submit</button>
         
-        <div class="weather-info" id="weather-info"></div>
+        <div class="app-info" id="app-info"></div>
     </div>
 
     <script>
-        function getWeather() {
-            const city = document.getElementById('city').value;
-            if (city === "") {
-                alert("Please enter a city name.");
+        function handleInput() {
+            const inputData = document.getElementById('inputData').value;
+            if (inputData === "") {
+                alert("Please enter some data.");
                 return;
             }
             
-            const apiKey = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.cod === 200) {
-                        const temp = data.main.temp;
-                        const humidity = data.main.humidity;
-                        const description = data.weather[0].description;
-                        
-                        document.getElementById('weather-info').innerHTML = `
-                            <p>Temperature: ${temp}°C</p>
-                            <p>Humidity: ${humidity}%</p>
-                            <p>Description: ${description}</p>
-                        `;
-                    } else {
-                        document.getElementById('weather-info').innerHTML = `<p>City not found. Please try again.</p>`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('weather-info').innerHTML = `<p>Error fetching data. Please try again later.</p>`;
-                });
+            document.getElementById('app-info').innerHTML = `
+                <p>You entered: ${inputData}</p>
+            `;
         }
     </script>
 
